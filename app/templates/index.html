@@ -1,0 +1,88 @@
+{% set title = 'Proof Point URL Decoder' %}
+
+{% block styles %}
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+
+{% endblock %}
+
+{% block scripts %}
+
+    <script language="javascript" type="text/javascript">
+    function clearText() {
+         document.getElementById('urlTextArea-decode').innerHTML = ""
+         document.getElementById('urlTextArea').innerHTML = ""
+         document.getElementById('decode_url').style.display = "none";
+
+    }
+    </script>
+
+{% endblock %}
+{% block content %}
+
+
+    <div class="container">
+        <br><br><br>
+        <h2>Proof Point URL Decoder</h2>
+        <br>
+        {% if decode_url is defined %}
+            <div id="enocde_url">
+
+               <form id="decode" method="post">
+                    <div class="form-group">
+                        <label for="urlTextAreaLabel">Enter URL</label>
+                        <textarea class="form-control" name="urlTextArea" id="urlTextArea" rows="10">{{ encode_url }}</textarea>
+                    </div>
+
+                <div class="btn-toolbar">
+                    <button type="submit" id ="submit" class="btn btn-primary pull-right">Decode URL</button>
+                    <button type="reset" value="Reset" class="btn btn-primary pull-right" onclick="clearText()">Clear</button>
+                </div>
+                </form>
+            </div>
+
+
+            <br><br>
+            <div id="decode_url">
+                <div class="form-group">
+                    <label for="urlTextAreaLabel">Decoded URL</label>
+                    {% if err_message is defined %}
+                        <textarea class="form-control" name="decode" id="urlTextArea-decode" rows="10">{{ err_message }}</textarea>
+                    {% else %}
+
+                        <textarea class="form-control" name="decode" id="urlTextArea-decode" rows="10">{{ decode_url }}</textarea>
+                    {% endif %}
+                </div>
+
+            </div>
+        {% else %}
+            <div id="enocde_url">
+                <form id="decode" method="post">
+                    <div class="form-group">
+                        <label for="urlTextAreaLabel">Enter URL</label>
+                        <textarea class="form-control" name="urlTextArea" id="urlTextArea" rows="10" placeholder="Enter Proofpoint URL here and click 'Decode URL'">{{ encode_url }}</textarea>
+                    </div>
+
+                <div class="btn-toolbar">
+                    <button type="submit" id ="submit" class="btn btn-primary pull-right">Decode URL</button>
+                    <button type="reset" value="Reset" class="btn btn-primary pull-right" >Clear</button>
+                </div>
+                </form>
+            </div>
+
+
+        {% endif %}
+
+        <div>
+            <h5>Note:</h5>
+            <ul>
+                <li>One URL at a time</li>
+                <li>Can have issues parsing v1 Proofpoint URLS</li>
+            </ul>
+        </div>
+
+    </div>
+
+
+
+{% endblock %}
